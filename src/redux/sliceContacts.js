@@ -1,0 +1,30 @@
+import { createSlice, nanoid } from '@reduxjs/toolkit';
+
+const contactsInitualeState = [
+  { id: nanoid(5), name: 'Лунная Роза', number: '071-0-232' },
+  { id: nanoid(5), name: 'Hermione Kline', number: '645-17-19' },
+  { id: nanoid(5), name: 'Eden Clements', number: '443-89-12' },
+  { id: nanoid(5), name: 'Annie Copeland', number: '459-12-56' },
+];
+
+const contactsSlice = createSlice({
+  // Ім'я слайсу
+  name: 'contacts',
+  // Початковий стан редюсера слайсу
+  initialState: contactsInitualeState,
+  // Об'єкт редюсерів
+  reducers: {
+    addContact(state, action) {
+      state.push(action.payload);
+    },
+    deleteContact(state, action) {
+      return state.filter(el => el.id !== action.payload);
+    },
+  },
+});
+
+// Генератори екшенів
+const { addContact, deleteContact } = contactsSlice.actions;
+
+// Редюсер слайсу
+const contactsReducer = contactsSlice.reducer;
