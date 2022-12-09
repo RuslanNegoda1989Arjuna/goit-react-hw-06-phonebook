@@ -1,36 +1,49 @@
 import { nanoid } from 'nanoid';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PhonebookContainer, Title, TitleCont } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { load, save } from '../LocalStorage/LocalStorage';
+// import { load, save } from '../LocalStorage/LocalStorage';
 import { PhonebookForm } from './PhonebookForm/PhonebookForm';
+// ===============================================================
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addMyContact,
+  deleteMyContact,
+  getContacts,
+} from 'redux/sliceContacts';
+import { filterContacts, getFilter } from 'redux/sliceFilter';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(load('contacts') ?? []);
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   // додавання в  localStorage
 
-  useEffect(() => {
-    save('contacts', contacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   save('contacts', contacts);
+  // }, [contacts]);
 
-  const addContact = addContact => {
+  const addContact = ({ name, number }) => {
     // запис id до кожного контакту за допомогою бібіліотеки
-    addContact.id = nanoid(10);
-    if (contacts.find(contact => contact.name === addContact.name)) {
-      return alert(`${addContact.name} is already is contacts`);
+    if (contacts.find(contact => contact.name === name)) {
+      return alert(`${name} is already is contacts`);
     }
-    setContacts(state => [addContact, ...state]);
-  };
-
-  const changeFilter = e => {
-    setFilter(e.currentTarget.value);
+    const contact = {
+      id: nanoid(5),
+      name,
+      number,
+    };
+    dispatch(addMyContact(contact));
   };
   //  в попередньому state фільтруємо по id, залишаємо всі, де не співпадають id
   const deleteContact = idContact => {
-    setContacts(state => state.filter(contact => contact.id !== idContact));
+    dispatch(deleteMyContact(idContact));
+  };
+
+  const changeFilter = e => {
+    dispatch(filterContacts(e.currentTarget.value));
   };
 
   // фільтруємо контакти, filter нормалізуємо,

@@ -14,21 +14,20 @@ export const contactsSlice = createSlice({
   initialState: contactsInitualeState,
   // Об'єкт редюсерів
   reducers: {
-    addContact(state, action) {
+    addMyContact(state, action) {
       state.push(action.payload);
     },
-    deleteContact(state, action) {
+    deleteMyContact(state, action) {
       return state.filter(el => el.id !== action.payload);
     },
   },
 });
 
 // Генератори екшенів
-export const { addContact, deleteContact } = contactsSlice.actions;
+export const { addMyContact, deleteMyContact } = contactsSlice.actions;
 
 // Редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;
 
 // selector ???
-export const getContacts = state => state.contacts.contacts;
-console.log(getContacts());
+export const getContacts = state => state.contacts;
