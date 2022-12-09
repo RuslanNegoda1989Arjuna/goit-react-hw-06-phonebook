@@ -7,7 +7,7 @@ const contactsInitualeState = [
   { id: nanoid(5), name: 'Annie Copeland', number: '459-12-56' },
 ];
 
-const contactsSlice = createSlice({
+export const contactsSlice = createSlice({
   // Ім'я слайсу
   name: 'contacts',
   // Початковий стан редюсера слайсу
@@ -24,7 +24,11 @@ const contactsSlice = createSlice({
 });
 
 // Генератори екшенів
-const { addContact, deleteContact } = contactsSlice.actions;
+export const { addContact, deleteContact } = contactsSlice.actions;
 
 // Редюсер слайсу
-const contactsReducer = contactsSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;
+
+// selector ???
+export const getContacts = state => state.contacts.contacts;
+console.log(getContacts());
