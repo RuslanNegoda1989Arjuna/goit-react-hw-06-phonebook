@@ -1,12 +1,20 @@
 import { FilterBox, FilterInp, Label } from './Filter.styled';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/sliceFilter';
 
-export const Filter = ({ filter, onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const changeFilter = e => {
+    dispatch(filterContacts(e.currentTarget.value));
+  };
+
   return (
     <FilterBox>
       <Label>
         Find contacts by name
-        <FilterInp type="text" valueFilter={filter} onChange={onChange} />
+        <FilterInp type="text" onChange={changeFilter} />
       </Label>
     </FilterBox>
   );

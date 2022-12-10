@@ -8,7 +8,7 @@ import { PhonebookForm } from './PhonebookForm/PhonebookForm';
 // ===============================================================
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteMyContact, getContacts } from 'redux/sliceContacts';
-import { filterContacts, getFilter } from 'redux/sliceFilter';
+import { getFilter } from 'redux/sliceFilter';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -23,10 +23,6 @@ export const App = () => {
 
   const deleteContact = idContact => {
     dispatch(deleteMyContact(idContact));
-  };
-
-  const changeFilter = e => {
-    dispatch(filterContacts(e.currentTarget.value));
   };
 
   // фільтруємо контакти, filter нормалізуємо,
@@ -46,7 +42,7 @@ export const App = () => {
         <PhonebookForm />
       </PhonebookContainer>
       <TitleCont>Contacts</TitleCont>
-      <Filter filter={filter} onChange={changeFilter} />
+      <Filter />
       <ContactList contacts={filteredContacts} onDelete={deleteContact} />
     </div>
   );
