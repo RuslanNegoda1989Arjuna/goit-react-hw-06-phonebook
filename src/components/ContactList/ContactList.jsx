@@ -1,13 +1,35 @@
 import { ContactIt, Item, ListBox } from './ContactList.styled';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { IconButton } from 'components/IconButton/IconButton';
 import { MdDeleteOutline } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMyContact, getContacts } from 'redux/sliceContacts';
+import { getFilter } from 'redux/sliceFilter';
 
-export const ContactList = ({ contacts, onDelete }) => {
+export const ContactList = () => {
+  const dispatch = useDispatch();
+  // Redux отримуєм з сховища дані
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  // Ф-ція видалення
+  const deleteContact = idContact => {
+    dispatch(deleteMyContact(idContact));
+  };
+
+  // фільтруємо контакти, filter нормалізуємо,
+  //  щоб на кажній ітерації не викликати ловерКейс
+
+  const normalizedFilter = filter.toLowerCase();
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
+
   return (
     <ListBox>
       <ul>
-        {contacts.map(({ id, name, number }) => {
+        {filteredContacts.map(({ id, name, number }) => {
           return (
             <Item key={id}>
               <ContactIt>
@@ -15,7 +37,7 @@ export const ContactList = ({ contacts, onDelete }) => {
               </ContactIt>
               <IconButton
                 type="button"
-                onClick={() => onDelete(id)}
+                onClick={() => deleteContact(id)}
                 aria-label="Delete contact"
               >
                 <MdDeleteOutline size="20px" />
@@ -28,14 +50,14 @@ export const ContactList = ({ contacts, onDelete }) => {
   );
 };
 
-Event.propTypes = {
-  contact: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      number: PropTypes.number,
-    })
-  ),
+// Event.propTypes = {
+//   contact: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number,
+//       name: PropTypes.string,
+//       number: PropTypes.number,
+//     })
+//   ),
 
-  onDelete: PropTypes.func,
-};
+//   onDelete: PropTypes.func,
+// };
