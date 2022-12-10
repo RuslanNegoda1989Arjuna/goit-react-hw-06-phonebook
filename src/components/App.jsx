@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import React from 'react';
 import { PhonebookContainer, Title, TitleCont } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
@@ -7,11 +7,7 @@ import { Filter } from './Filter/Filter';
 import { PhonebookForm } from './PhonebookForm/PhonebookForm';
 // ===============================================================
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addMyContact,
-  deleteMyContact,
-  getContacts,
-} from 'redux/sliceContacts';
+import { deleteMyContact, getContacts } from 'redux/sliceContacts';
 import { filterContacts, getFilter } from 'redux/sliceFilter';
 
 export const App = () => {
@@ -25,19 +21,6 @@ export const App = () => {
   //   save('contacts', contacts);
   // }, [contacts]);
 
-  const addContact = ({ name, number }) => {
-    // запис id до кожного контакту за допомогою бібіліотеки
-    if (contacts.find(contact => contact.name === name)) {
-      return alert(`${name} is already is contacts`);
-    }
-    const contact = {
-      id: nanoid(5),
-      name,
-      number,
-    };
-    dispatch(addMyContact(contact));
-  };
-  //  в попередньому state фільтруємо по id, залишаємо всі, де не співпадають id
   const deleteContact = idContact => {
     dispatch(deleteMyContact(idContact));
   };
@@ -60,7 +43,7 @@ export const App = () => {
       <Title>PhoneBook</Title>
 
       <PhonebookContainer>
-        <PhonebookForm onSubmit={addContact} />
+        <PhonebookForm />
       </PhonebookContainer>
       <TitleCont>Contacts</TitleCont>
       <Filter filter={filter} onChange={changeFilter} />

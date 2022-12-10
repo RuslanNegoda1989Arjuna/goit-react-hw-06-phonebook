@@ -1,15 +1,29 @@
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { Button, FormUs, Input, LabelIn } from './PhonebookForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMyContact, getContacts } from 'redux/sliceContacts';
+import { nanoid } from 'nanoid';
 
 const initialValues = {
   name: '',
   number: '',
 };
 
-export const PhonebookForm = ({ onSubmit }) => {
+export const PhonebookForm = () => {
+  const dispatch = useDispatch();
+  // для перевірки однакових контактів
+  const contacts = useSelector(getContacts);
+
   const userSubmit = (values, { resetForm }) => {
-    onSubmit(values);
+    // перевірка на однакові імена
+    if (contacts.find(contact => contact.name === values.name)) {
+      return alert(`${values.name} is already is contacts`);
+    }
+    values.id = nanoid(5);
+    //  Записуємо в стейт значення
+    dispatch(addMyContact(values));
+    // скидаємо форму
     resetForm();
   };
   return (
