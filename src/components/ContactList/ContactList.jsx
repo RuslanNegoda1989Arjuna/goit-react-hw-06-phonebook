@@ -1,5 +1,4 @@
 import { ContactIt, Item, ListBox } from './ContactList.styled';
-// import PropTypes from 'prop-types';
 import { IconButton } from 'components/IconButton/IconButton';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +20,7 @@ export const ContactList = () => {
   //  щоб на кажній ітерації не викликати ловерКейс
 
   const normalizedFilter = filter.toLowerCase();
+  console.log(contacts);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter)
@@ -49,15 +49,3 @@ export const ContactList = () => {
     </ListBox>
   );
 };
-
-// Event.propTypes = {
-//   contact: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number,
-//       name: PropTypes.string,
-//       number: PropTypes.number,
-//     })
-//   ),
-
-//   onDelete: PropTypes.func,
-// };
