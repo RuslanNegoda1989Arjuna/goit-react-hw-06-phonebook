@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/sliceContacts';
 import { PhonebookContainer, Title, TitleCont } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
@@ -6,6 +8,7 @@ import { Filter } from './Filter/Filter';
 import { PhonebookForm } from './PhonebookForm/PhonebookForm';
 
 export const App = () => {
+  const contacts = useSelector(getContacts);
   return (
     <div>
       <Title>PhoneBook</Title>
@@ -15,7 +18,7 @@ export const App = () => {
       </PhonebookContainer>
       <TitleCont>Contacts</TitleCont>
       <Filter />
-      <ContactList />
+      {contacts.length === 0 ? <p>empty</p> : <ContactList />}
     </div>
   );
 };
