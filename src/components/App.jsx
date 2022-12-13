@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/sliceContacts';
-import { PhonebookContainer, Title, TitleCont } from './App.styled';
+import { Empty, PhonebookContainer, Title, TitleCont } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
@@ -18,7 +18,7 @@ export const App = () => {
       </PhonebookContainer>
       <TitleCont>Contacts</TitleCont>
       <Filter />
-      {contacts.length === 0 ? <p>empty</p> : <ContactList />}
+      {contacts.length === 0 ? <Empty>empty</Empty> : <ContactList />}
     </div>
   );
 };

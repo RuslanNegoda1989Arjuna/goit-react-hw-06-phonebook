@@ -11,3 +11,7 @@ export const TitleCont = styled.h2`
   font-weight: 700;
   text-align: center;
 `;
+
+export const Empty = styled.p`
+  text-align: center;
+`;

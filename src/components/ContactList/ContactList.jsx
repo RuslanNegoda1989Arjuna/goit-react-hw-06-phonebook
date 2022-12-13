@@ -19,11 +19,6 @@ export const ContactList = () => {
   // фільтруємо контакти, filter нормалізуємо,
   //  щоб на кажній ітерації не викликати ловерКейс
 
-  // const normalizedFilter = filter.toLowerCase();
-
-  // const filteredContacts = contacts.filter(contact =>
-  //   contact.name.toLowerCase().includes(normalizedFilter)
-  // );
   const findContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
