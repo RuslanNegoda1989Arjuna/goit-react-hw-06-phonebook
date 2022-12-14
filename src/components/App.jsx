@@ -4,7 +4,6 @@ import { getContacts } from 'redux/sliceContacts';
 import { Empty, PhonebookContainer, Title, TitleCont } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
 import { PhonebookForm } from './PhonebookForm/PhonebookForm';
 
 export const App = () => {
